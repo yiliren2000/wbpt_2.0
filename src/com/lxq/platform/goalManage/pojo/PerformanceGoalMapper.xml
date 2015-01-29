@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.goalManage.pojo.PerformanceGoalMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.goalManage.pojo.PerformanceGoal">
+        insert into 
+            performance_goal 
+        values
+            (#{uid},#{dateBatch.uid},#{content},null,#{goalType.uid},#{fullScore},#{ownerDept.uid},#{ownerPerson.uid},#{createDept.uid},#{createPerson.uid},#{createTime},#{finalScore},null,#{coorDeptsJson},null,#{finalApprover.uid},#{beginStatus.uid},#{endStatus.uid},#{finishStatus.uid},#{isMajor.uid},#{remark},null,#{isAddScore.uid},#{addScoreReason})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.goalManage.pojo.PerformanceGoal">
+        update performance_goal 
+        set 
+            uid=#{uid},dateBatch=#{dateBatch.uid},content=#{content},goalType=#{goalType.uid},fullScore=#{fullScore},ownerDept=#{ownerDept.uid},ownerPerson=#{ownerPerson.uid},createDept=#{createDept.uid},createPerson=#{createPerson.uid},createTime=#{createTime},finalScore=#{finalScore},coorDeptsJson=#{coorDeptsJson},finalApprover=#{finalApprover.uid},beginStatus=#{beginStatus.uid},endStatus=#{endStatus.uid},finishStatus=#{finishStatus.uid},isMajor=#{isMajor.uid},remark=#{remark},isAddScore=#{isAddScore.uid},addScoreReason=#{addScoreReason}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.goalManage.pojo.PerformanceGoal">
+        delete from performance_goal where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="goalResult">
+        select * from performance_goal where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="goalResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.goalManage.pojo.PerformanceGoal" id="goalResult">
+       <id column="uid" property="uid"/>
+       <association property="dateBatch" column="dateBatch" select="com.lxq.platform.goalManage.pojo.DateBatchMapper.findById" />
+       <association property="finishStatus" column="finishStatus" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="goalType" column="goalType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="ownerDept" column="ownerDept" select="com.lxq.platform.userManage.pojo.DepartmentMapper.findById"/>
+       <association property="ownerPerson" column="ownerPerson" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+       <association property="createDept" column="createDept" select="com.lxq.platform.userManage.pojo.DepartmentMapper.findById"/>
+       <association property="createPerson" column="createPerson" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+       <association property="finalApprover" column="finalApprover" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+       <association property="beginStatus" column="beginStatus" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="endStatus" column="endStatus" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="isMajor" column="isMajor" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="isAddScore" column="isAddScore" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    
+    </resultMap>
+    
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.businessManage.pojo.ContracTaskMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.businessManage.pojo.ContracTask">
+        insert into 
+            contrac_task 
+        values
+            (
+             #{uid},
+			 #{contracNo},
+			 #{taskType.uid},
+			 #{taskStatus.uid},
+			 #{executePerson},
+			 #{createPerson},
+			 #{startTime},
+			 #{endTime},
+			 #{taskContent}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.businessManage.pojo.ContracTask">
+        update contrac_task 
+        set 
+            uid=#{uid},
+			contracNo=#{contracNo},
+			taskType=#{taskType.uid},
+			taskStatus=#{taskStatus.uid},
+			executePerson=#{executePerson},
+			createPerson=#{createPerson},
+			startTime=#{startTime},
+			endTime=#{endTime},
+			taskContent=#{taskContent}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.businessManage.pojo.ContracTask">
+        delete from contrac_task where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="contracTaskResult">
+        select * from contrac_task where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="contracTaskResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.businessManage.pojo.ContracTask" id="contracTaskResult">
+       <id column="uid" property="uid"/>
+       <association property="taskType" column="taskType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="taskStatus" column="taskStatus" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    </resultMap>
+</mapper>

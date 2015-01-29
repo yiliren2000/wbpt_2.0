@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.goalManage.pojo.DateBatchMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.goalManage.pojo.DateBatch">
+        insert into 
+            date_batch 
+        values
+            (#{uid},#{batchType.uid},#{dateBatch},#{beginStatus},#{endStatus})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.goalManage.pojo.DateBatch">
+        update date_batch 
+        set 
+            uid=#{uid},batchType=#{batchType.uid},dateBatch=#{dateBatch},beginStatus=#{beginStatus},endStatus=#{endStatus}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.goalManage.pojo.DateBatch">
+        delete from date_batch where uid=#{uid}
+    </delete>
+    
+    <select id="findById"  resultMap="dateBatchResult">
+        select * from date_batch where uid=#{uid}
+    </select>
+       
+    <select id="findBySql"  resultMap="dateBatchResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.goalManage.pojo.DateBatch" id="dateBatchResult">
+       <id column="uid" property="uid"/>
+       <association property="batchType" column="batchType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    </resultMap>
+</mapper>

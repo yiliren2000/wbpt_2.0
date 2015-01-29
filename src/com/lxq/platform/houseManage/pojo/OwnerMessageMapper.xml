@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.houseManage.pojo.OwnerMessageMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.houseManage.pojo.OwnerMessage">
+        insert into 
+            owner_message 
+        values
+            (
+             #{uid},
+			 #{name},
+			 #{gender.uid},
+			 #{ownerType.uid},
+			 #{phone},
+			 #{identityCard},
+			 #{IDScanCopy},
+			 #{ownerMemo}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.houseManage.pojo.OwnerMessage">
+        update owner_message 
+        set 
+            uid=#{uid},
+			name=#{name},
+			gender=#{gender.uid},
+			ownerType=#{ownerType.uid},
+			phone=#{phone},
+			identityCard=#{identityCard},
+			IDScanCopy=#{IDScanCopy},
+			ownerMemo=#{ownerMemo}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.houseManage.pojo.OwnerMessage">
+        delete from owner_message where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="ownerMessageResult">
+        select * from owner_message where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="ownerMessageResult">
+        ${sql}
+    </select>
+    
+   <select id="houseMessagesResult" resultMap="com.lxq.platform.houseManage.pojo.HouseMessageMapper.houseMessageResult">
+        select a.* from owner_message a
+        join house_message b on a.uid=b.houseNo 
+        where a.uid=#{uid}
+    </select>
+    
+    <resultMap type="com.lxq.platform.houseManage.pojo.OwnerMessage" id="ownerMessageResult">
+        <id column="uid" property="uid"/>
+        <association property="gender" column="gender" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="ownerType" column="ownerType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<collection property="houseMessage" column="uid" select="houseMessagesResult"/>
+    </resultMap>
+</mapper>

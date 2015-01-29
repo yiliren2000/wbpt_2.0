@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.systemManage.pojo.CodeLibraryMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        insert into 
+            basic_code_library
+        values
+            (#{uid},#{value},#{text},#{codeCatalog.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        update basic_code_library 
+        set 
+            uid=#{uid},value=#{value},text=#{text},codeCatalog=#{codeCatalog.uid} 
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        delete from basic_code_library where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        select * from basic_code_library where uid=#{uid}
+    </select>
+               
+    <select id="findBySql" resultType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        ${sql}
+    </select>
+</mapper>

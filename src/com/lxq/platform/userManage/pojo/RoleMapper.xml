@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.userManage.pojo.RoleMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.userManage.pojo.Role">
+        insert into basic_role 
+        values
+            (#{uid},#{roleId},#{roleName},#{status.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.userManage.pojo.Role">
+        update basic_role 
+        set 
+            uid=#{uid},roleId=#{roleId},roleName=#{roleName},status=#{status.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.userManage.pojo.Role">
+        delete from basic_role where uid=#{uid}
+    </delete>
+    
+    <resultMap type="com.lxq.platform.userManage.pojo.Role" id="rolesResultMap">
+       <id column="uid" property="uid"/>
+       <result column="roleId" property="roleId"/>
+       <result column="roleName" property="roleName"/>
+       <association property="status" column="status" select="statusResult"/>
+       <collection property="privileges" column="uid" select="privilegesResult"/>
+    </resultMap>
+        
+    <select id="statusResult" resultType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        select * from basic_code_library where uid=#{uid}
+    </select>
+    
+    <select id="privilegesResult" resultType="com.lxq.platform.userManage.pojo.Privilege">
+        select basic_privilege.* from basic_role 
+        join basic_role_privilege on basic_role.uid=basic_role_privilege.role 
+        join basic_privilege on basic_role_privilege.privilege=basic_privilege.uid
+        where basic_role.uid=#{uid}
+    </select>
+    
+    <select id="findById" resultMap="rolesResultMap">
+        select * from basic_role where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="rolesResultMap">
+        ${sql}
+    </select>
+        
+</mapper>

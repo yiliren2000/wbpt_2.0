@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.businessManage.pojo.RemindMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.businessManage.pojo.Remind">
+        insert into 
+            remind 
+        values
+            (
+             #{uid},
+			 #{content},
+			 #{startTime},
+			 #{endTime},
+			 #{owner.uid}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.businessManage.pojo.Remind">
+        update remind 
+        set 
+            uid=#{uid},
+			content=#{content},
+			startTime=#{startTime},
+			endTime=#{endTime},
+			owner=#{owner.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.businessManage.pojo.Remind">
+        delete from remind where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="remindResult">
+        select * from remind where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="remindResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.businessManage.pojo.Remind" id="remindResult">
+       <id column="uid" property="uid"/>
+       <collection property="owner" column="uid" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+    </resultMap>
+</mapper>

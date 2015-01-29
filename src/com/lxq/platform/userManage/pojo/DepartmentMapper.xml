@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.userManage.pojo.DepartmentMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.userManage.pojo.Department">
+        insert into 
+            basic_department 
+        values
+            (#{uid},#{deptId},#{parentDept.uid},#{level.uid},#{deptName},
+            #{directLeader.uid},#{status.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.userManage.pojo.Department">
+        update basic_department 
+        set 
+            uid=#{uid},deptId=#{deptId},parentDept=#{parentDept.uid},
+            level=#{level.uid},deptName=#{deptName},
+            directLeader=#{directLeader.uid},status=#{status.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.userManage.pojo.Department">
+        delete from basic_department where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="departmentResult">
+        select * from basic_department where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="departmentResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.userManage.pojo.Department" id="departmentResult">
+    
+       <id column="uid" property="uid"/>
+       <result column="deptId" property="deptId"/>
+       <result column="deptName" property="deptName"/>
+       <association property="parentDept" column="parentDept" select="findById" />
+       <association property="status" column="status" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="level" column="level" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="directLeader" column="directLeader" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+       <collection property="childDepts" column="uid" select="childDeptsResult"/>
+       <collection property="users" column="uid" select="usersResult"/>
+    </resultMap>
+    
+    <select id="childDeptsResult"  resultMap="departmentResult">
+        select * from basic_department 
+        where parentDept=#{uid}
+    </select>
+    
+    <select id="usersResult" resultType="com.lxq.platform.userManage.pojo.User">
+        select * from basic_user 
+        where belongDept=#{uid}
+    </select>
+</mapper>

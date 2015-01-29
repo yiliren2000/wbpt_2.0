@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.customerManage.pojo.CustomerMessageMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.customerManage.pojo.CustomerMessage">
+        insert into 
+            customer_message 
+        values
+            (
+             #{uid},
+			 #{customerNo},
+			 #{name},
+			 #{gender.uid},
+			 #{phone},
+			 #{customerType.uid},
+			 #{identityCard},
+			 #{IDScanCopy},
+			 #{rmark},
+			 #{address}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.customerManage.pojo.CustomerMessage">
+        update customer_message 
+        set 
+            uid=#{uid},
+			customerNo=#{customerNo},
+			name=#{name},
+			gender=#{gender.uid},
+			phone=#{phone},
+			customerType=#{customerType.uid},
+			identityCard=#{identityCard},
+			IDScanCopy=#{IDScanCopy},
+			rmark=#{rmark},
+			address=#{address}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.customerManage.pojo.CustomerMessage">
+        delete from customer_message where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="customerMessageResult">
+        select * from customer_message where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="customerMessageResult">
+        ${sql}
+    </select>
+    
+    <select id="chooseConditionsResult" resultMap="com.lxq.platform.customerManage.pojo.ChooseConditionMapper.chooseConditionResult">
+        select a.* from customer_message a
+        join choose_condition b on a.uid=b.customerNo 
+        where a.uid=#{uid}
+    </select>
+    
+    <resultMap type="com.lxq.platform.customerManage.pojo.CustomerMessage" id="customerMessageResult">
+        <id column="uid" property="uid"/>
+        <association property="gender" column="gender" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="customerType" column="customerType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<collection property="chooseCondition" column="uid" select="chooseConditionsResult"/>
+    </resultMap>
+</mapper>

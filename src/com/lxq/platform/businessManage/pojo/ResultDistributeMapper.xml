@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.businessManage.pojo.ResultDistributeMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.businessManage.pojo.ResultDistribute">
+        insert into 
+            result_distribute 
+        values
+            (
+             #{uid},
+			 #{contracNo},
+			 #{commissionSum},
+			 #{validResult},
+			 #{resultOwner},
+			 #{resultRatio},
+			 #{resultDate},
+			 #{distributeDesc},
+			 #{resultType.uid}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.businessManage.pojo.ResultDistribute">
+        update result_distribute 
+        set 
+            uid=#{uid},
+			contracNo=#{contracNo},
+			commissionSum=#{commissionSum},
+			validResult=#{validResult},
+			resultOwner=#{resultOwner},
+			resultRatio=#{resultRatio},
+			resultDate=#{resultDate},
+			distributeDesc=#{distributeDesc},
+			resultType=#{resultType.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.businessManage.pojo.ResultDistribute">
+        delete from result_distribute where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="resultDistributeResult">
+        select * from result_distribute where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="resultDistributeResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.businessManage.pojo.ResultDistribute" id="resultDistributeResult">
+       <id column="uid" property="uid"/>
+       <association property="resultType" column="resultType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    </resultMap>
+</mapper>

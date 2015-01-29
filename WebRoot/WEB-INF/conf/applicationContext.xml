@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:aop="http://www.springframework.org/schema/aop"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+    
+    <bean id="operateLogAdvice" class="com.lxq.platform.aop.OperateLogAdvice" />
+    <aop:config>
+        <aop:advisor id="operateLogAdvisor" advice-ref="operateLogAdvice"
+              pointcut="              
+                execution(* com.lxq.platform.service.impl.BaseServiceImpl..*(*,*,String,String))
+              " />
+    </aop:config>
+    
+    <bean id="privilegeControlAdvice" class="com.lxq.platform.aop.PrivilegeControlAdvice">
+        <property name="userService">
+            <ref bean="userService" />
+        </property>
+    </bean> 
+    <aop:config>
+        <aop:advisor id="privilegeControlAdvisor" advice-ref="privilegeControlAdvice"
+              pointcut="              
+                execution(* com.lxq.platform.service.impl.BaseServiceImpl..*(*,*,String,String))
+              " />
+    </aop:config>
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">   
+         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>   
+         <property name="url" value="jdbc:mysql://localhost:3306/wbpt2.0?useUnicode=true&amp;characterEncoding=UTF-8"/>   
+         <property name="username" value="root"/>   
+         <property name="password" value="root"/>   
+         <property name="maxActive" value="10"/>
+         <property name="maxIdle" value="10"/>
+    </bean> 
+
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="WEB-INF/conf/mybatis-config.xml" /> 
+    </bean>
+    
+    <!-- 事务管理器 -->
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref local="dataSource" />
+        </property>
+    </bean>
+
+    <!-- 事务代理拦截器的配置 -->
+    <bean id="baseTransactionProxy" abstract="true"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+                <!-- 
+                <prop key="insert*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="delete*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+                 -->
+            </props>
+        </property>
+    </bean>
+    
+    <!-- 配置MybatisTemplate -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sessionFactory" /> 
+    </bean>
+    
+    <bean id="baseDAO" class="com.lxq.platform.dao.mybatisImpl.BaseDAOImpl">
+        <property name="sqlSessionTemplate">
+            <ref bean="sqlSessionTemplate" />
+        </property>
+    </bean>
+    
+    <bean id="baseService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean
+                class="com.lxq.platform.service.impl.BaseServiceImpl">
+                <property name="baseDAO">
+                    <ref bean="baseDAO" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="userService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean
+                class="com.lxq.platform.userManage.service.impl.UserServiceImpl">
+                <property name="baseDAO">
+                    <ref bean="baseDAO" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="goalService" parent="baseTransactionProxy">
+        <property name="target">
+            <bean
+                class="com.lxq.platform.goalManage.service.impl.GoalServiceImpl">
+                <property name="baseDAO">
+                    <ref bean="baseDAO" />
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="baseAction" class="com.lxq.platform.action.BaseAction">
+        <property name="baseService">
+            <ref bean="baseService" />
+        </property>
+        <property name="userService">
+            <ref bean="userService" />
+        </property>
+    </bean>
+    
+    <bean id="utilAction" class="com.lxq.platform.action.UtilAction">
+        <property name="baseService">
+            <ref bean="baseService" />
+        </property>
+    </bean>
+
+    <bean id="loginAction" class="com.lxq.platform.userManage.action.LoginAction">
+        <property name="userService">
+            <ref bean="userService" />
+        </property>
+    </bean>
+    
+    <bean id="goalApplyAction" class="com.lxq.platform.goalManage.action.GoalApplyAction">
+        <property name="goalService">
+            <ref bean="goalService" />
+        </property>
+    </bean>
+    
+    <bean id="goalApproveAction" class="com.lxq.platform.goalManage.action.GoalApproveAction">
+        <property name="goalService">
+            <ref bean="goalService" />
+        </property>
+    </bean>
+    
+    <bean id="goalSendAction" class="com.lxq.platform.goalManage.action.GoalSendAction">
+        <property name="goalService">
+            <ref bean="goalService" />
+        </property>
+    </bean>
+    
+</beans>

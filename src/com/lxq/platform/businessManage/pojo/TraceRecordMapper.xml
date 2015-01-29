@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.businessManage.pojo.TraceRecordMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.businessManage.pojo.TraceRecord">
+        insert into 
+            trace_record 
+        values
+            (
+             #{uid},
+			 #{traceType.uid},
+			 #{businessType.uid},
+			 #{traceDesc},
+			 #{tracePerson},
+			 #{traceTime},
+			 #{traceObj}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.businessManage.pojo.TraceRecord">
+        update trace_record 
+        set 
+            uid=#{uid},
+			traceType=#{traceType.uid},
+			businessType=#{businessType.uid},
+			traceDesc=#{traceDesc},
+			tracePerson=#{tracePerson},
+			traceTime=#{traceTime},
+			traceObj=#{traceObj}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.businessManage.pojo.TraceRecord">
+        delete from trace_record where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="traceRecordResult">
+        select * from trace_record where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="traceRecordResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.businessManage.pojo.TraceRecord" id="traceRecordResult">
+       <id column="uid" property="uid"/>
+       <association property="traceType" column="traceType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="businessType" column="businessType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    </resultMap>
+</mapper>

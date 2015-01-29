@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://8.soufun.com/jsq/Loan.aspx -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+	房贷计算器_公积金贷款计算器_最新2014版_搜房网
+</title><meta name="Keywords" content="房贷计算器，房贷计算器最新2013，贷款计算器，公积金贷款计算器"><meta name="Description" content="房贷计算器，搜房网房贷计算器为购房者提供2013最新房贷计算器及各种在线购房计算工具。包括房贷计算器，贷款计算器，公积金贷款计算器，商业贷款计算器，房贷提前还贷计算器，税费计算器。"><link href="http://8.soufun.com/css/calculate_new.css" rel="stylesheet"><link href="FinancialPlatform.css" rel="stylesheet">
+    <style type="text/css">
+        .wydkgjc li
+        { height:20px; line-height:20px; width:110px; float:left; padding-left:12px; font-size:12px;
+        }
+        .wydkgjc
+        { padding-bottom:8px;*padding-bottom:28px;
+        }
+        #selectdkyt,#select_iddkje_sh,#select_iddkqx_sh,#select_iddkje_s,#select_iddkqx_s,#selectdkje_c
+        { font-size:12px;
+        }
+
+    </style>
+    <script src="jquery-1.7.1.js"></script>
+    <script type="text/javascript">
+        function V(id) {
+            return document.getElementById(id);
+        }
+        //切换贷款下拉
+        function changeType() {
+            var searchType = V("bs_iddkyt").value;
+            if (searchType.indexOf("goufang") > -1) {
+                $("#selectdkje_f").show();
+                $("#selectdkqx_f").show();
+                $("#selectdkje").hide();
+                $("#selectdkqx").hide();
+                $("#selectdkqx_c").hide();
+                $("#selectdkje_c").hide();
+            }
+
+            if (searchType.indexOf("xiaofei") > -1) {
+                $("#selectdkje").show();
+                $("#selectdkqx").show();
+                $("#selectdkje_f").hide();
+                $("#selectdkqx_f").hide();
+                $("#selectdkqx_c").hide();
+                $("#selectdkje_c").hide();
+            }
+
+            if (searchType.indexOf("gouche") > -1) {
+                $("#selectdkje").hide();
+                $("#selectdkqx").hide();
+                $("#selectdkje_f").hide();
+                $("#selectdkqx_f").hide();
+                $("#selectdkqx_c").show();
+                $("#selectdkje_c").show();
+            }
+        }
+
+        function search() {
+            var searchType = V("bs_iddkyt").value;
+            if (searchType == "gouche") {
+                parent.location.href = "/gouche/q" + V("bs_iddkjec").value + "y" + V("bs_iddkqxc").value + ".htm";
+            }
+            if (searchType == "goufang") {
+                parent.location.href = "/goufang/q" + V("bs_iddkjeh").value + "y" + V("bs_iddkqxh").value + ".htm";
+            }
+            if (searchType == "jingying") {
+                parent.location.href = "/jingying/q" + V("bs_iddkje").value + "y" + V("bs_iddkqx").value + ".htm";
+            }
+            if (searchType == "xiaofei") {
+                parent.location.href = "/xiaofei/q" + V("bs_iddkje").value + "y" + V("bs_iddkqx").value + ".htm";
+            }
+        }
+    </script>
+</head>
+<body style=" background:#e6e6e6;" marginwidth="0" marginheight="0">
+    <form name="form1" method="post" action="Loan.htm" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTA4NTA2MTI2MGRkr7IFgge8kH5SOWrCIP79TqUFDA2/+pFeOTlmCWMOM/4=">
+</div>
+
+        <!--我要贷款 start-->
+        <div class="mrbox list_ser pro_ks jsq_ks" style=" width:278px;">
+            <div class="mrbtitle"><h2 style=" font-size:14px; padding:6px 0 2px; font-weight:600;">我要贷款</h2></div>
+            <div class="ksdk">
+                <dl>
+                    <dt>贷款用途</dt>
+                    <dd>
+                        <div id="selectdkyt">
+                            <div id="select_iddkyt_s" class="select_box"><div id="select_info_iddkyt_s" class="tag_select" style="cursor: pointer;">购房贷款</div><ul id="options_iddkyt_s" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open_selected" id="selected_iddkyt_s" style="cursor: pointer;">购房贷款</li><li class="open" style="cursor: pointer;">消费贷款</li><li class="open" style="cursor: pointer;">购车贷款</li></ul></div><select name="iddkyt_s" id="bs_iddkyt" "="" style="display: none;">
+                                <option value="goufang">购房贷款</option>
+                                <option value="xiaofei">消费贷款</option>
+                                <option value="gouche">购车贷款</option>
+                            </select>
+                        </div>    
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>贷款金额</dt>
+                    <dd>
+                        <div id="selectdkje" style="display: none;">
+                            <div id="select_iddkje_s" class="select_box"><div id="select_info_iddkje_s" class="tag_select" style="cursor: pointer;">10万</div><ul id="options_iddkje_s" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open_selected" id="selected_iddkje_s" style="cursor: pointer;">10万</li><li class="open" style="cursor: pointer;">15万</li><li class="open" style="cursor: pointer;">20万</li><li class="open" style="cursor: pointer;">30万</li><li class="open" style="cursor: pointer;">40万</li><li class="open" style="cursor: pointer;">50万</li></ul></div><select name="iddkje_s" id="bs_iddkje" style="display: none;">
+                                <option value="10" selected="selected">10万</option>
+                                <option value="15">15万</option>
+                                <option value="20">20万</option>
+                                <option value="30">30万</option>
+                                <option value="40">40万</option>
+                                <option value="50">50万</option>
+                            </select>
+                        </div>
+                        <div id="selectdkje_f" style="">
+                            <div id="select_iddkje_sh" class="select_box"><div id="select_info_iddkje_sh" class="tag_select" style="cursor: pointer;">20万</div><ul id="options_iddkje_sh" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open_selected" id="selected_iddkje_sh" style="cursor: pointer;">20万</li><li class="open" style="cursor: pointer;">50万</li><li class="open" style="cursor: pointer;">80万</li><li class="open" style="cursor: pointer;">100万</li></ul></div><select style="display: none;" name="iddkje_sh" id="bs_iddkjeh">
+                                <option value="20" selected="selected">20万</option>
+                                <option value="50">50万</option>
+                                <option value="80">80万</option>
+                                <option value="100">100万</option>
+                            </select>
+                        </div>   
+                        <div id="selectdkje_c" style="display: none;">
+                            <div id="select_iddkje_c" class="select_box"><div id="select_info_iddkje_c" class="tag_select" style="cursor: pointer;">15万</div><ul id="options_iddkje_c" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open" style="cursor: pointer;">10万</li><li class="open_selected" id="selected_iddkje_c" style="cursor: pointer;">15万</li><li class="open" style="cursor: pointer;">20万</li><li class="open" style="cursor: pointer;">30万</li><li class="open" style="cursor: pointer;">50万</li></ul></div><select name="iddkje_c" id="bs_iddkjec" style="display: none;">
+                                <option value="10">10万</option>
+                                <option value="15" selected="selected">15万</option>
+                                <option value="20">20万</option>
+                                <option value="30">30万</option>
+                                <option value="50">50万</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>贷款期限</dt>
+                    <dd>
+                        <div id="selectdkqx" style="display: none;">
+                            <div id="select_iddkqx_s" class="select_box"><div id="select_info_iddkqx_s" class="tag_select" style="cursor: pointer;">12个月</div><ul id="options_iddkqx_s" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open" style="cursor: pointer;">3个月</li><li class="open" style="cursor: pointer;">6个月</li><li class="open_selected" id="selected_iddkqx_s" style="cursor: pointer;">12个月</li><li class="open" style="cursor: pointer;">18个月</li><li class="open" style="cursor: pointer;">24个月</li><li class="open" style="cursor: pointer;">36个月</li><li class="open" style="cursor: pointer;">60个月</li><li class="open" style="cursor: pointer;">120个月</li></ul></div><select name="iddkqx_s" id="bs_iddkqx" style="display: none;">
+                                <option value="3">3个月</option>
+                                <option value="6">6个月</option>
+                                <option value="12" selected="selected">12个月</option>
+                                <option value="18">18个月</option>
+                                <option value="24">24个月</option>
+                                <option value="36">36个月</option>
+                                <option value="60">60个月</option>
+                                <option value="120">120个月</option>
+                            </select>
+                        </div>
+                        <div id="selectdkqx_f" style="">
+                            <div id="select_iddkqx_sh" class="select_box"><div id="select_info_iddkqx_sh" class="tag_select" style="cursor: pointer;">15年</div><ul id="options_iddkqx_sh" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open" style="cursor: pointer;">5年</li><li class="open" style="cursor: pointer;">10年</li><li class="open_selected" id="selected_iddkqx_sh" style="cursor: pointer;">15年</li><li class="open" style="cursor: pointer;">20年</li><li class="open" style="cursor: pointer;">25年</li><li class="open" style="cursor: pointer;">30年</li></ul></div><select name="iddkqx_sh" id="bs_iddkqxh" style="display: none;">
+                                <option value="60">5年</option>
+                                <option value="120">10年</option>
+                                <option value="180" selected="selected">15年</option>
+                                <option value="240">20年</option>
+                                <option value="300">25年</option>
+                                <option value="360">30年</option>
+                            </select>
+                        </div>
+                        <div id="selectdkqx_c" style="display: none;">
+                            <div id="select_iddkqx_c" class="select_box"><div id="select_info_iddkqx_c" class="tag_select" style="cursor: pointer;">2年</div><ul id="options_iddkqx_c" class="tag_options" style="position: absolute; display: none; z-index: 999;"><li class="open" style="cursor: pointer;">1年</li><li class="open_selected" id="selected_iddkqx_c" style="cursor: pointer;">2年</li><li class="open" style="cursor: pointer;">3年</li></ul></div><select name="iddkqx_c" id="bs_iddkqxc" style="display: none;">
+                                <option value="12">1年</option>
+                                <option value="24" selected="selected">2年</option>
+                                <option value="36">3年</option>
+                            </select>
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="ctbtns btns03 ks_but"><a href="javascript:search();" class="FPico">快速搜索</a></dd>
+                </dl>
+            </div>
+            <ul class="wydkgjc">
+                <li><a target="_blank" href="http://8.soufun.com/xiaofei/q3y12.htm" class="grey">3万信用贷 </a></li>
+                <li><a target="_blank" href="http://8.soufun.com/xiaofei/q10y12.htm" class="grey">10万信用贷 </a></li>
+                <li><a target="_blank" href="http://8.soufun.com/xiaofei/q30y12.htm" class="grey">30万信用贷  </a></li>
+                <li><a target="_blank" href="http://8.soufun.com/goufang/q10y144.htm" class="grey">10万抵押贷 </a></li>
+                <li><a target="_blank" href="http://8.soufun.com/goufang/q30y144.htm" class="grey">30万抵押贷</a></li>
+                <li><a target="_blank" href="http://8.soufun.com/goufang/q50y144.htm" class="grey">50万抵押贷</a></li>
+                <br>
+            </ul>
+        </div>
+        <!--我要贷款 end-->
+    </form>
+  
+
+
+<script type="text/javascript" src="beautiful_select.js"></script>
+<script type="text/javascript">
+    if ("" == "xiaofei") {
+        document.getElementById("bs_iddkyt").selectedIndex = 1;
+    }
+    changeType();
+</script></body></html>

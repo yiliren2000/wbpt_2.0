@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.userManage.pojo.RolePrivilegeMapper">
+
+    
+    <insert id="insert" parameterType="com.lxq.platform.userManage.pojo.RolePrivilege">
+        insert into 
+            basic_role_privilege
+        values
+            (#{role},#{privilege})
+    </insert>
+        
+    <delete id="delete" parameterType="com.lxq.platform.userManage.pojo.RolePrivilege">
+        delete from basic_role_privilege where role=#{role} and privilege=#{privilege}
+    </delete>
+    
+    <select id="findById" resultType="com.lxq.platform.userManage.pojo.RolePrivilege">
+        select * from basic_role_privilege where role=#{role} and privilege=#{privilege}
+    </select>
+</mapper>

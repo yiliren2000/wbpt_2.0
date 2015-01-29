@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.systemManage.pojo.MenuMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.systemManage.pojo.Menu">
+        insert into 
+            basic_menu
+        values
+            (#{uid},#{orderNo},#{text},#{url},#{showTree},#{parentMenu.uid},#{valid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.systemManage.pojo.Menu">
+        update basic_menu 
+        set 
+            uid=#{uid},orderNo=#{orderNo},text=#{text},url=#{url},showTree=#{showTree},parentMenu=#{parentMenu.uid},valid=#{valid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.systemManage.pojo.Menu">
+        delete from basic_menu where uid=#{uid}
+    </delete>
+    
+    <resultMap type="com.lxq.platform.systemManage.pojo.Menu" id="menuResult">
+       <id column="uid" property="uid"/>
+       <result column="orderNo" property="orderNo"/>
+       <result column="text" property="text"/>
+       <result column="url" property="url"/>
+       <result column="showTree" property="showTree"/>
+       <result column="url" property="url"/>
+       <result column="url" property="url"/>
+       <result column="valid" property="valid"/>
+       <association property="parentMenu" column="parentMenu" select="findById" />
+       <collection property="childMenus" column="uid" select="childMenusResult"/>
+       <collection property="roles" column="uid" select="rolesResult"/>
+    </resultMap>
+       
+    <select id="findById" resultMap="menuResult">
+        select * from basic_menu where uid=#{uid}
+    </select>
+
+    <select id="findBySql" resultMap="menuResult">
+        ${sql}
+    </select>
+        
+    <select id="childMenusResult" resultMap="menuResult">
+        select * from basic_menu where parentMenu=#{uid}
+    </select>
+    
+    <select id="rolesResult" resultMap="com.lxq.platform.userManage.pojo.RoleMapper.rolesResultMap">
+        select basic_role.* from basic_menu 
+        join basic_menu_role on basic_menu.uid=basic_menu_role.menu 
+        join basic_role on basic_menu_role.role=basic_role.uid
+        where basic_menu.uid=#{uid}
+    </select>
+    
+</mapper>

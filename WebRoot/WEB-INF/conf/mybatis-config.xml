@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>
+	<environments default="development">  
+        <environment id="development">  
+            <transactionManager type="JDBC"/>  
+            <dataSource type="POOLED">  
+                <property name="driver" value="com.mysql.jdbc.Driver"/>  
+                <property name="url" value="jdbc:mysql://localhost:3306/pams?useUnicode=true&amp;characterEncoding=UTF-8"/>  
+                <property name="username" value="root"/>  
+                <property name="password" value="root"/>  
+            </dataSource>  
+        </environment>  
+    </environments> 
+
+    <mappers>  
+        <mapper resource="com/lxq/platform/goalManage/pojo/ApprovePostilMapper.xml"/>
+        <mapper resource="com/lxq/platform/goalManage/pojo/DateBatchMapper.xml"/>
+        <mapper resource="com/lxq/platform/goalManage/pojo/PerformanceGoalMapper.xml"/>
+        
+        <mapper resource="com/lxq/platform/systemManage/pojo/CodeCatalogMapper.xml"/>
+        <mapper resource="com/lxq/platform/systemManage/pojo/CodeLibraryMapper.xml"/>
+        <mapper resource="com/lxq/platform/systemManage/pojo/MenuMapper.xml"/>
+        <mapper resource="com/lxq/platform/systemManage/pojo/MenuRoleMapper.xml"/>
+        <mapper resource="com/lxq/platform/systemManage/pojo/NoticeMapper.xml"/>
+        
+        <mapper resource="com/lxq/platform/pojo/CommonMapper.xml"/>
+        <mapper resource="com/lxq/platform/pto/SelectItemMapper.xml"/>
+        
+        <mapper resource="com/lxq/platform/userManage/pojo/DepartmentMapper.xml"/>
+        <mapper resource="com/lxq/platform/userManage/pojo/GroupMapper.xml"/>
+        <mapper resource="com/lxq/platform/userManage/pojo/PrivilegeMapper.xml"/>
+        <mapper resource="com/lxq/platform/userManage/pojo/RoleMapper.xml"/>   
+        <mapper resource="com/lxq/platform/userManage/pojo/RolePrivilegeMapper.xml"/>  
+        <mapper resource="com/lxq/platform/userManage/pojo/UserMapper.xml"/>
+        <mapper resource="com/lxq/platform/userManage/pojo/UserRoleMapper.xml"/>    
+      
+    </mappers>  
+</configuration> 
