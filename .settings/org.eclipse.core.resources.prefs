@@ -1,4 +1,4 @@
-#Mon Jan 26 16:55:35 CST 2015
+#Sun Feb 01 16:32:58 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/apply/selfEvaGoalApply.jsp=UTF-8
 encoding//WebRoot/apply/setupGoalApply.jsp=UTF-8
@@ -12,6 +12,7 @@ encoding//WebRoot/report/report2.jsp=UTF-8
 encoding//WebRoot/report/report3.jsp=UTF-8
 encoding//WebRoot/resources/js/baseGridAndForm.js=UTF-8
 encoding//WebRoot/resources/js/common.js=UTF-8
+encoding//WebRoot/resources/js/marquee.js=UTF-8
 encoding//WebRoot/systemManage/codeCatalog.jsp=UTF-8
 encoding//WebRoot/systemManage/dateBatch.jsp=UTF-8
 encoding//WebRoot/systemManage/flowCatalog.jsp=UTF-8

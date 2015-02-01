@@ -5,4 +5,5 @@ autoHeightExtend = function(value, meta, record) {
      } else {
     	 return value;     
      }
-} 
+}
+
