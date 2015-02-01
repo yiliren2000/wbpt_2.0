@@ -106,14 +106,6 @@
        </action>
        <action name="goalQuery" class="com.lxq.platform.goalManage.action.GoalQueryAction">
        </action>
-       <action name="reportAction" class="com.lxq.platform.goalManage.action.ReportAction">
-       </action>
-       <action name="report1Action" class="com.lxq.platform.goalManage.action.Report1Action">
-       </action>
-       <action name="report2Action" class="com.lxq.platform.goalManage.action.Report2Action">
-       </action>
-       <action name="report3Action" class="com.lxq.platform.goalManage.action.Report3Action">
-       </action>
        <action name="goalAdjustAction" class="com.lxq.platform.goalManage.action.GoalAdjustAction">
        </action>
     </package>

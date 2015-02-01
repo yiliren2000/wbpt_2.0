@@ -1,6 +1,7 @@
 package com.lxq.platform.userManage.pojo;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.lxq.platform.systemManage.pojo.CodeLibrary;
 
@@ -9,7 +10,7 @@ import com.lxq.platform.systemManage.pojo.CodeLibrary;
  * @author lixueqing
  * 
  */
-public class Department {
+public class Department implements Comparable<Department>{
 	
 	/**主键*/
 	private int uid;
@@ -24,7 +25,7 @@ public class Department {
 	private Department parentDept;
 
 	/**直接下级部门编号*/
-	private Set<Department> childDepts;
+	private TreeSet<Department> childDepts;
 	
 	/**机构级别*/
 	private CodeLibrary level;
@@ -102,12 +103,21 @@ public class Department {
 		this.uid = uid;
 	}
 
-	public Set<Department> getChildDepts() {
+	public TreeSet<Department> getChildDepts() {
 		return childDepts;
 	}
 
-	public void setChildDepts(Set<Department> childDepts) {
+	public void setChildDepts(TreeSet<Department> childDepts) {
 		this.childDepts = childDepts;
+	}
+
+	public int compareTo(Department dept) {
+		if(this.uid > dept.getUid()){
+			return 1;
+		} else if(this.uid > dept.getUid()){
+			return -1;
+		}
+		return 0;
 	}
 
 }

@@ -18,7 +18,6 @@
 <script type="text/javascript" src="${path}/resources/extjs/src/locale/ext-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${path}/resources/js/common.js"></script> 
 <script type="text/javascript" src="${path}/resources/js/project.js"></script> 
-<script type="text/javascript" src="${path}/resources/js/marquee.js"></script> 
 <script type="text/javascript" src="${path}/resources/js/baseGridAndForm.js"></script> 
 <script type="text/javascript" src="${path}/resources/extjs/query-plugin.js"></script> 
 <script type="text/javascript" src="${path}/resources/extjs/comboxtree.js"></script> 
@@ -530,7 +529,13 @@
 		            	new Ext.DatePicker({//日历
 		            		
 				        }),
-		            	{title:'系统通知',height:800,contentEl:'notice',bodyStyle:'background:#dae7f6;padding:8px 8px 0'}
+		            	{
+		            		title:'系统通知',
+		            		height:400,
+		            		autoScroll:true,
+		            		contentEl:'notice',
+		            		bodyStyle:'background:#dae7f6;padding:8px 8px 0'
+	            		}
 		            ]
 				},  
 				{
@@ -635,9 +640,6 @@
 		
 	    notice_content.appendChild(tag_p);
 	}
-	
-	new Marquee("notice",0,1,258,200,50,0,0);
-	
 	
 </script>
 </html>
