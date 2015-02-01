@@ -18,6 +18,7 @@
 <script type="text/javascript" src="${path}/resources/extjs/src/locale/ext-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${path}/resources/js/common.js"></script> 
 <script type="text/javascript" src="${path}/resources/js/project.js"></script> 
+<script type="text/javascript" src="${path}/resources/js/marquee.js"></script> 
 <script type="text/javascript" src="${path}/resources/js/baseGridAndForm.js"></script> 
 <script type="text/javascript" src="${path}/resources/extjs/query-plugin.js"></script> 
 <script type="text/javascript" src="${path}/resources/extjs/comboxtree.js"></script> 
@@ -603,8 +604,7 @@
 </head>
 
 <body>
-	<marquee id='notice' behavior="scroll" direction="up" scrollamount="1" onmouseover="this.stop()" onmouseout="this.start()">
-    </marquee>
+    <div id="notice"></div>
 </body>
 
 <script type="text/javascript">
@@ -617,8 +617,9 @@
 		   }
 		});	
 	}
-
+	
 	var notice_content = document.getElementById("notice");
+	
 	for(var i = 0 ; i < notices.length ; i ++){
 		var title = notices[i].title;
 		var uid = notices[i].uid;
@@ -634,5 +635,9 @@
 		
 	    notice_content.appendChild(tag_p);
 	}
+	
+	new Marquee("notice",0,1,258,200,50,0,0);
+	
+	
 </script>
 </html>
