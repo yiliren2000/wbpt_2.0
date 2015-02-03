@@ -27,6 +27,7 @@ import com.lxq.platform.util.DateUtil;
 import com.lxq.platform.util.ExcelExport;
 import com.lxq.platform.util.ReflectUtil;
 import com.lxq.platform.util.ServletUtil;
+import com.lxq.platform.util.WordExport;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
@@ -189,6 +190,31 @@ public class BaseAction extends ActionSupport{
 		
 		OutputStream out = response.getOutputStream();
 		ExcelExport.export(header,data,out);
+		out.flush();
+		out.close();
+		
+	}
+	
+	/**
+	 * 导出数据文件
+	 * @return excel文件输出流
+	 * @throws IOException reponse获取输出流
+	 */
+	public void exportWord() throws IOException {
+		
+		Map<String, String> map = new HashMap<String, String>();
+
+		HttpServletResponse response=ServletActionContext.getResponse();
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		
+		response.reset(); //清空输出流
+		fileName = new String(fileName.getBytes(), "ISO-8859-1")+DateUtil.getToday("yyyyMMdd");
+		response.setHeader("Content-disposition", "attachment; filename="+fileName+".xls");  
+		
+		OutputStream out = response.getOutputStream();
+		
+		WordExport.export("",map,out);
+		
 		out.flush();
 		out.close();
 		
