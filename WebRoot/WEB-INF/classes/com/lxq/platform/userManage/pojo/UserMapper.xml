@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.userManage.pojo.UserMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.userManage.pojo.User">
+        insert into 
+            basic_user
+        values
+            (#{uid},#{userId},#{userName},#{password},#{belongDept.uid},
+            #{status.uid},#{loginNum},#{phonenumber},#{email})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.userManage.pojo.User">
+        update basic_user 
+        set 
+            uid=#{uid},userId=#{userId},userName=#{userName},
+            password=#{password},belongDept=#{belongDept.uid},status=#{status.uid},
+            loginNum=#{loginNum},phonenumber=#{phonenumber},email=#{email}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.userManage.pojo.User">
+        delete from basic_user where uid=#{uid}
+    </delete>
+
+    <select id="findById" resultMap="userResult">
+        select * from basic_user where uid=#{uid}
+    </select>
+
+    <select id="findBySql" resultMap="userResult">
+        ${sql}
+    </select>
+
+	<resultMap type="com.lxq.platform.userManage.pojo.User" id="userResult">
+	   <id column="uid" property="uid"/>
+	   <result column="userId" property="userId"/>
+	   <result column="userName" property="userName"/>
+	   <result column="password" property="password"/>
+	   <result column="loginNum" property="loginNum"/>
+	   <result column="phonenumber" property="phonenumber"/>
+	   <result column="email" property="email"/>
+	   <association property="belongDept" column="belongDept" select="com.lxq.platform.userManage.pojo.DepartmentMapper.findById" />
+	   <association property="status" column="status" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+	   <collection property="groups" column="uid" select="groupsResult"/>
+	   <collection property="roles" column="uid" select="rolesResult"/>
+	</resultMap>
+    
+    <resultMap type="com.lxq.platform.userManage.pojo.Role" id="rolesResultMap">
+       <id column="uid" property="uid"/>
+       <result column="roleId" property="roleId"/>
+       <result column="roleName" property="roleName"/>
+       <association property="status" column="status" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <collection property="privileges" column="uid" select="privilegesResult"/>
+    </resultMap>
+    
+    <select id="groupsResult" resultType="com.lxq.platform.userManage.pojo.Group">
+        select basic_group.* from basic_user 
+        join basic_group_user on basic_user.uid=basic_group_user.user 
+        join basic_group on basic_group_user.c_group=basic_group.uid
+        where basic_user.uid=#{uid}
+    </select>
+    
+    <select id="rolesResult" resultMap="rolesResultMap">
+        select basic_role.* from basic_user 
+        join basic_user_role on basic_user.uid=basic_user_role.user 
+        join basic_role on basic_user_role.role=basic_role.uid
+        where basic_user.uid=#{uid}
+    </select>
+    
+    <select id="privilegesResult" resultType="com.lxq.platform.userManage.pojo.Privilege">
+        select basic_privilege.* from basic_role 
+        join basic_role_privilege on basic_role.uid=basic_role_privilege.role 
+        join basic_privilege on basic_role_privilege.privilege=basic_privilege.uid
+        where basic_role.uid=#{uid}
+    </select>
+    
+</mapper>

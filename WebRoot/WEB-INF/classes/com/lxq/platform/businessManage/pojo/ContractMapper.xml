@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.businessManage.pojo.ContractMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.businessManage.pojo.Contract">
+        insert into 
+            contract_message 
+        values
+            (
+             #{uid},
+			 #{contracNo},
+			 #{businessType.uid},
+			 #{houseNo},
+			 #{customerNo},
+			 #{contractSum},
+			 #{signDate},
+			 #{signPerson},
+			 #{inputPerson},
+			 #{ownerName},
+			 #{ownerPhone},
+			 #{ownerIdentityCard},
+			 #{ownerIDScanCopy},
+			 #{ownerAddress},
+			 #{ownerCommission},
+			 #{customerCommission},
+			 #{attachItem},
+			 #{remark},
+			 #{contractScanCopy},
+			 #{approveOpinion},
+			 #{inputDate}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.businessManage.pojo.Contract">
+        update contract_message 
+        set 
+            uid=#{uid},
+			contracNo=#{contracNo},
+			businessType=#{businessType.uid},
+			houseNo=#{houseNo},
+			customerNo=#{customerNo},
+			contractSum=#{contractSum},
+			signDate=#{signDate},
+			signPerson=#{signPerson},
+			inputPerson=#{inputPerson},
+			ownerName=#{ownerName},
+			ownerPhone=#{ownerPhone},
+			ownerIdentityCard=#{ownerIdentityCard},
+			ownerIDScanCopy=#{ownerIDScanCopy},
+			ownerAddress=#{ownerAddress},
+			ownerCommission=#{ownerCommission},
+			customerCommission=#{customerCommission},
+			attachItem=#{attachItem},
+			remark=#{remark},
+			contractScanCopy=#{contractScanCopy},
+			approveOpinion=#{approveOpinion},
+			inputDate=#{inputDate}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.businessManage.pojo.Contract">
+        delete from contract_message where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="contractResult">
+        select * from contract_message where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="contractResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.businessManage.pojo.Contract" id="contractResult">
+       <id column="uid" property="uid"/>
+       <association property="businessType" column="businessType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+    </resultMap>
+</mapper>

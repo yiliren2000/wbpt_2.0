@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.systemManage.pojo.CodeCatalogMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.systemManage.pojo.CodeCatalog">
+        insert into 
+            basic_code_catalog
+        values
+            (#{uid},#{codeNo},#{codeName})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.systemManage.pojo.CodeCatalog">
+        update basic_code_catalog 
+        set 
+            uid=#{uid},codeNo=#{codeNo},codeName=#{codeName}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.systemManage.pojo.CodeCatalog">
+        delete from basic_code_catalog where uid=#{uid}
+    </delete>
+    
+    <resultMap type="com.lxq.platform.systemManage.pojo.CodeCatalog" id="codeCatalogResult">
+       <id column="uid" property="uid"/>
+       <result column="codeNo" property="codeNo"/>
+       <result column="codeName" property="codeName"/>
+       <result column="valid" property="valid"/>
+       <collection property="codeLibrarys" column="uid" select="codeLibrarysResult"/>
+    </resultMap>
+    
+    <select id="codeLibrarysResult" resultType="com.lxq.platform.systemManage.pojo.CodeLibrary">
+        select * from basic_code_library where codeCatalog=#{uid}
+    </select>
+    
+    <select id="findById" resultMap="codeCatalogResult">
+        select * from basic_code_catalog where uid=#{uid}
+    </select>
+                   
+    <select id="findBySql" resultMap="codeCatalogResult">
+        ${sql}
+    </select>
+    
+    
+</mapper>

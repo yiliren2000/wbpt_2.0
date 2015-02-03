@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.houseManage.pojo.HouseMessageMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.houseManage.pojo.HouseMessage">
+    	insert into house_message values
+    	(#{uid},#{payMode.uid},#{city},#{county},#{zone},#{buildNo},#{unitNo},
+    	#{allFloor},#{floor},#{doorNo},#{direction.uid},#{buildYear},#{houseType.uid},
+    	#{decorateDegree.uid},#{property.uid},#{buildType.uid},#{rightType.uid},#{rightYear},
+    	#{buildArea},#{useArea},#{source.uid},#{structure.uid},#{license},#{facility},
+    	#{traffic},#{pubilcRemark},#{privateRemark},#{keyNo},#{garageDesc},
+    	#{totalPrice},#{publishTime},#{houseNo},#{status.uid},#{priceCondition.uid},
+    	#{viewMethod.uid},#{unitPrice},#{updateTime},#{createPerson},#{housePicture},#{ownerMessage.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.houseManage.pojo.HouseMessage">
+        update house_message 
+        set 
+            uid=#{uid},
+			payMode=#{payMode.uid},
+			city=#{city},
+			county=#{county},
+			zone=#{zone},
+			buildNo=#{buildNo},
+			unitNo=#{unitNo},
+			allFloor=#{allFloor},
+			floor=#{floor},
+			doorNo=#{doorNo},
+			direction=#{direction.uid},
+			buildYear=#{buildYear},
+			houseType=#{houseType.uid},
+			decorateDegree=#{decorateDegree.uid},
+			property=#{property.uid},
+			buildType=#{buildType.uid},
+			rightType=#{rightType.uid},
+			rightYear=#{rightYear},
+			buildArea=#{buildArea},
+			useArea=#{useArea},
+			source=#{source.uid},
+			structure=#{structure.uid},
+			license=#{license},
+			facility=#{facility},
+			traffic=#{traffic},
+			pubilcRemark=#{pubilcRemark},
+			privateRemark=#{privateRemark},
+			keyNo=#{keyNo},
+			garageDesc=#{garageDesc},
+			totalPrice=#{totalPrice},
+			publishTime=#{publishTime},
+			houseNo=#{houseNo},
+			status=#{status.uid},
+			priceCondition=#{priceCondition.uid},
+			viewMethod=#{viewMethod.uid},
+			unitPrice=#{unitPrice},
+			updateTime=#{updateTime},
+			createPerson=#{createPerson},
+			housePicture=#{housePicture},
+			ownerMessage=#{ownerMessage.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.houseManage.pojo.HouseMessage">
+        delete from house_message where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="houseMessageResult">
+        select * from house_message where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="houseMessageResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.houseManage.pojo.HouseMessage" id="houseMessageResult">
+        <id column="uid" property="uid"/>
+        <association property="payMode" column="payMode" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="direction" column="direction" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="houseType" column="houseType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="decorateDegree" column="decorateDegree" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="property" column="property" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="buildType" column="buildType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="rightType" column="rightType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="source" column="source" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="structure" column="structure" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="status" column="status" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="priceCondition" column="priceCondition" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="viewMethod" column="viewMethod" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="ownerMessage" column="ownerMessage" select="com.lxq.platform.houseManage.pojo.OwnerMessageMapper.findById"/>
+    </resultMap>
+</mapper>

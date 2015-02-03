@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.goalManage.pojo.ApprovePostilMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.goalManage.pojo.ApprovePostil">
+        insert into 
+            approve_postil 
+        values
+            (#{uid},#{goal.uid},#{postil},#{score},#{approveDept.uid},
+            #{approvePerson.uid},#{approveTime},null,
+            #{applyType.uid},#{action.uid},#{phaseNo},#{evaluation.uid},#{approveRole.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.goalManage.pojo.ApprovePostil">
+        update approve_postil 
+        set 
+            uid=#{uid},goal=#{goal.uid},postil=#{postil},score=#{score},
+            approveDept=#{approveDept.uid},approvePerson=#{approvePerson.uid},
+            approveTime=#{approveTime},
+            applyType=#{applyType.uid},action=#{action.uid},phaseNo=#{phaseNo},
+            evaluation=#{evaluation.uid},approveRole=#{approveRole.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.goalManage.pojo.ApprovePostil">
+        delete from approve_postil where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="approvePostilResult">
+        select * from approve_postil where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="approvePostilResult">
+        ${sql}
+    </select>
+        
+    <resultMap type="com.lxq.platform.goalManage.pojo.ApprovePostil" id="approvePostilResult">
+       <id column="uid" property="uid"/>
+       <association property="goal" column="goal" select="com.lxq.platform.goalManage.pojo.PerformanceGoalMapper.findById"/>
+       <association property="applyType" column="applyType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="evaluation" column="evaluation" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="action" column="action" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+       <association property="approveDept" column="approveDept" select="com.lxq.platform.userManage.pojo.DepartmentMapper.findById"/>
+       <association property="approvePerson" column="approvePerson" select="com.lxq.platform.userManage.pojo.UserMapper.findById"/>
+       <association property="approveRole" column="approveRole" select="com.lxq.platform.userManage.pojo.RoleMapper.findById"/>
+   
+    </resultMap>    
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.systemManage.pojo.NoticeMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.systemManage.pojo.Notice">
+        insert into 
+            basic_notice
+        values
+            (#{uid},#{title},#{filePath},#{startDate},#{endDate},
+            #{noticeDeptsJson},#{publishPerson.uid},#{createDate})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.systemManage.pojo.Notice">
+        update basic_notice 
+        set 
+            uid=#{uid},title=#{title},filePath=#{filePath},startDate=#{startDate},
+            endDate=#{endDate},noticeDeptsJson=#{noticeDeptsJson},
+            publishPerson=#{publishPerson.uid},createDate=#{createDate} 
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.systemManage.pojo.Notice">
+        delete from basic_notice where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="noticeResult">
+        select * from basic_notice where uid=#{uid}
+    </select>
+            
+    <select id="findBySql" resultMap="noticeResult">
+        ${sql}
+    </select>
+    
+    <resultMap type="com.lxq.platform.systemManage.pojo.Notice" id="noticeResult">
+       <id column="uid" property="uid"/>
+       <result column="title" property="title"/>
+       <result column="noticeDeptsJson" property="noticeDeptsJson"/>
+       <result column="filePath" property="filePath"/>
+       <result column="startDate" property="startDate"/>
+       <result column="endDate" property="endDate"/>
+       <result column="createDate" property="createDate"/>
+       <association property="publishPerson" column="publishPerson" select="com.lxq.platform.userManage.pojo.UserMapper.findById" />
+    </resultMap>
+    
+</mapper>

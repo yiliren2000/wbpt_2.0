@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.customerManage.pojo.ChooseConditionMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.customerManage.pojo.ChooseCondition">
+        insert into 
+            choose_condition 
+        values
+            (
+             #{uid},
+			 #{customerNo},
+			 #{county},
+			 #{zone},
+			 #{plate},
+			 #{street},
+			 #{buildType.uid},
+			 #{houseArea},
+			 #{floor},
+			 #{customerStatus.uid},
+			 #{sourceType.uid},
+			 #{houseType.uid},
+			 #{decorateDegree.uid},
+			 #{direction.uid},
+			 #{rightType.uid},
+			 #{buildArea},
+			 #{source.uid},
+			 #{traffic},
+			 #{remark},
+			 #{totalPrice},
+			 #{unitPrice},
+			 #{payMode.uid}
+			)
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.customerManage.pojo.ChooseCondition">
+        update choose_condition 
+        set 
+            uid=#{uid},
+			customerNo=#{customerNo},
+			county=#{county},
+			zone=#{zone},
+			plate=#{plate},
+			street=#{street},
+			buildType=#{buildType.uid},
+			houseArea=#{houseArea},
+			floor=#{floor},
+			customerStatus=#{customerStatus.uid},
+			sourceType=#{sourceType.uid},
+			houseType=#{houseType.uid},
+			decorateDegree=#{decorateDegree.uid},
+			direction=#{direction.uid},
+			rightType=#{rightType.uid},
+			buildArea=#{buildArea},
+			source=#{source.uid},
+			traffic=#{traffic},
+			remark=#{remark},
+			totalPrice=#{totalPrice},
+			unitPrice=#{unitPrice},
+			payMode=#{payMode.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.customerManage.pojo.ChooseCondition">
+        delete from choose_condition where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultMap="chooseConditionResult">
+        select * from choose_condition where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="chooseConditionResult">
+        ${sql}
+    </select>
+
+    <resultMap type="com.lxq.platform.customerManage.pojo.ChooseCondition" id="chooseConditionResult">
+        <id column="uid" property="uid"/>
+        <association property="buildType" column="buildType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="customerStatus" column="customerStatus" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="sourceType" column="sourceType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="houseType" column="houseType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="decorateDegree" column="decorateDegree" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="direction" column="direction" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="rightType" column="rightType" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="source" column="source" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+		<association property="payMode" column="payMode" select="com.lxq.platform.systemManage.pojo.CodeLibraryMapper.findById"/>
+
+    </resultMap>
+</mapper>

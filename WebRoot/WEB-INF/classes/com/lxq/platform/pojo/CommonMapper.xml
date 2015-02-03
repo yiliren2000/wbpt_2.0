@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.pojo.CommonMapper">
+
+    <select id="findUniqueBySql" resultType="java.util.HashMap">
+        ${sql}
+    </select>
+    
+    <select id="getCount" resultType="int">
+        ${sql}
+    </select>
+    
+    <select id="findMapBySql" resultType="java.util.HashMap">
+        ${sql}
+    </select>
+
+    <update id="executeUpdate">
+        ${sql}
+    </update>
+    
+</mapper>
