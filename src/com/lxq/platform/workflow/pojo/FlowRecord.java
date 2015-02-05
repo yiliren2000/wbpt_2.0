@@ -1,5 +1,7 @@
 package com.lxq.platform.workflow.pojo;
 
+import com.lxq.platform.userManage.pojo.User;
+
 public class FlowRecord {
 
 	/**主键*/
@@ -13,6 +15,9 @@ public class FlowRecord {
 	
 	/**对象主键*/
 	private int objectUid;
+	
+	/**处理人*/
+	private User user;
 	
 	/**开始时间*/
 	private String startTime;
@@ -58,6 +63,14 @@ public class FlowRecord {
 
 	public String getStartTime() {
 		return startTime;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setStartTime(String startTime) {

@@ -20,14 +20,14 @@ public class Interpreter {
 		flowAction.setFlowNode(FlowCatalog.getFlowNodeByNo("test", "second"));
 		
 		User user1 = new User();
-		user1.setUid(1);
 		user1.setUserName("zhangsan");
 		
 		User user2 = new User();
-		user2.setUid(2);
 		user2.setUserName("lisi");
 		
 		List<User> users= new ArrayList<User>();
+		users.add(user1);
+		users.add(user2);
 		
 		flowAction.setUsers(users);
 		
@@ -37,7 +37,7 @@ public class Interpreter {
 	public FlowAction nextNode2(FlowRecord flowRecord,Map<String,String>params) throws Exception{
 		
 		
-		FlowNode flowNode = FlowCatalog.getFlowNodeByNo("test", "end");
+		FlowNode flowNode = FlowCatalog.getFlowNodeByNo("test", "third");
 		
 		FlowAction flowAction = new FlowAction();;
 		
@@ -45,15 +45,28 @@ public class Interpreter {
 		
 		User user1 = new User();
 		user1.setUid(1);
-		user1.setUserName("zhangsan");
+		user1.setUserName("zhangsan1111");
 		
 		User user2 = new User();
 		user2.setUid(2);
-		user2.setUserName("lisi");
+		user2.setUserName("lisi22222");
 		
 		List<User> users= new ArrayList<User>();
+		users.add(user1);
+		users.add(user2);
 		
 		flowAction.setUsers(users);
+		
+		return flowAction;
+	}
+	public FlowAction nextNode3(FlowRecord flowRecord,Map<String,String>params) throws Exception{
+		
+		
+		FlowNode flowNode = FlowCatalog.getFlowNodeByNo("test", "end");
+		
+		FlowAction flowAction = new FlowAction();;
+		
+		flowAction.setFlowNode(flowNode);
 		
 		return flowAction;
 	}
