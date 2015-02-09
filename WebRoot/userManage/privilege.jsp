@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/header.jsp"%>
 
-<c:set var="entityName" value="com.lxq.platform.userManage.pojo.Privilege"></c:set>
-    
+<c:set var="entityName"
+	value="com.lxq.platform.userManage.pojo.Privilege"></c:set>
+
 <html>
-	<head>
-		<script type="text/javascript">
+<head>
+<script type="text/javascript">
 			var params = {
 							
 			    /**panel渲染元素**/
@@ -43,7 +44,7 @@
 		    	dir: 'asc',	
 				
 				/**弹出窗口的宽度**/
-				formWidth: 400,
+				formWidth: 600,
 				
 				/**弹出窗口的高度**/
 				formHeight: 250,
@@ -57,8 +58,7 @@
 		            name: 'uid',//必须有一个名称为“uid”的信息项,作为主键
 		            field: 'uid' ,
 		            header: '主键',
-		            searchable: false,
-		            hidden: true
+		            searchable: false
 		        },{
 		            type: 'textfield',
 		            name: 'name',
@@ -81,35 +81,35 @@
 		            searchable: true
 		        }],
 				
-				/**form表单信息项**/
-			    formFields: [
-			    {
-			        xtype:'textfield',
-			        fieldLabel: '主键',
-			        name:'uid',
-			        field: 'uid',
-			        hidden: true,
-			        readOnly : true,
-			        hidden : true
-			    },{
-			        xtype:'textfield',
-			        fieldLabel: '权限名称',
-			        name:'name',
-			        field: 'name',
-			        allowBlank: false
-			    },{
-			        xtype:'textfield',
-			        fieldLabel: '操作名称',
-			        name:'operate',
-			        field: 'operate',
-			        allowBlank: false
-			    },{
-			        xtype:'textfield',
-			        fieldLabel: '实体类名称',
-			        name:'className',
-			        field: 'className',
-			        allowBlank: false    
-			    }],
+		        /**form表单信息项**/
+			    formFields: [{
+					xtype : 'fieldset',
+					title : ' ',
+					collapsible : true,
+					autoHeight : true,
+					layout : 'column',
+					items : [ {
+						columnWidth : .5,
+						layout : 'form',
+						items : [ {
+							xtype:'textfield',
+					        fieldLabel: '主键',
+					        name:'uid',
+					        field: 'uid',
+					        readOnly : true
+						} ]
+					}, {
+						columnWidth : .5,
+						layout : 'form',
+						items : [ {
+							xtype:'textfield',
+					        fieldLabel: '权限名称',
+					        name:'name',
+					        field: 'name',
+					        allowBlank: false
+						} ]
+					} ]
+				} ],
 			    
 				//new : 新增权限,info ： 查看权限,edit ：编辑权限,cancel ：取消权限，all ：所有权限
 				buttons:[
@@ -123,8 +123,8 @@
 			new com.lxq.js.GridAndForm.BaseGridAndForm(params).initGridAndForm();
 
 		</script>
-	</head>
-	<body>
-		<div id='${pageId}'></div>
-	</body>
+</head>
+<body>
+	<div id='${pageId}'></div>
+</body>
 </html>

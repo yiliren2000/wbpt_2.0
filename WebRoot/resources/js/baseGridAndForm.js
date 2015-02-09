@@ -112,53 +112,51 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 	
 	/**根据formFields,初始化loadFields的表单项*/
 	this.initloadFields = function (formFields){
-	
-		var fields = new Array(formFields.length); 
+
+		var loadFields = new Array();
 		
 		for(var i = 0 ; i < formFields.length ; i ++){
-			fields[i] = formFields[i].name;
+			
+			var fieldSets = formFields[i].items;
+			
+			for(var j = 0 ; j < fieldSets.length ; j ++){
+				
+				var fields = fieldSets[j].items;
+				
+				for(var k = 0 ; k < fields.length ; k ++){
+					loadFields.push(fields[k]);
+				}
+			}
 		}
-		return fields;
+		return loadFields;
+	}
+	
+	/**根据formFields,初始化loadFields的表单项*/
+	this.initloadFieldNames = function (loadFields){
+		
+		var loadFieldNames = new Array();
+		for(var i = 0 ; i < loadFields.length ; i ++){
+			loadFieldNames.push(loadFields[i].name);
+		}
+		return loadFieldNames;
 	}
 	
 	/**根据formFields,初始化newPanel的表单项*/
 	this.initNewFields = function (formFields){
 	
-		var fields = new Array(); 
-		
-		for(var i = 0 ; i < formFields.length ; i ++){
-			
-			if(formFields[i].name != 'uid' && (typeof(formFields[i].byUse) == 'undefined' || formFields[i].byUse.new_panel == true)){
-				fields.push(this.copyFrom('new',formFields[i]));
-			}
-		}
-		return fields;
+		return this.copyForm('new',formFields);
 	}
 	
 	/**根据formFields,初始化editPanel的表单项*/
 	this.initEditFields = function (formFields){
 	
-		var fields = new Array(); 
-		
-		for(var i = 0 ; i < formFields.length ; i ++){
-			if(typeof(formFields[i].byUse) == 'undefined' || formFields[i].byUse.edit_panel == true){
-				fields.push(this.copyFrom('edit',formFields[i]));
-			}
-		}
-		return fields;
+		return this.copyForm('edit',formFields);
 	}
 	
 	/**根据formFields,初始化infoPanel的表单项*/
 	this.initInfoFields = function (formFields){
 	
-		var fields = new Array(); 
-		
-		for(var i = 0 ; i < formFields.length ; i ++){
-			if(typeof(formFields[i].byUse) == 'undefined' || formFields[i].byUse.edit_panel == true){
-				fields.push(this.copyFrom('info',formFields[i]));
-			}
-		}
-		return fields;
+		return this.copyForm('info',formFields);
 	}
 	
 	/**根据gridFields,初始化gridPanel的表单项*/
@@ -376,36 +374,39 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 		}
 		return fields;
 	}
-	
+
 	/**复制属性*/
-	this.copyFrom = function (newOrEdit,o2){
-		var o1 = {
-			id : newOrEdit+'_'+(o2.id||Ext.id()),
-		    xtype : o2.xtype,
-		    inputType : o2.inputType,
-		    fieldLabel : o2.fieldLabel,
-		    name : o2.name,
-		    objectName : o2.objectName,
-		    value : o2.value,
-		    field : o2.field,
-		    hidden : o2.hidden,
-		    width : o2.width,
-		    height : o2.height,
-		    style : o2.style,
-		    editable : o2.editable,
-		    minValue : o2.minValue,
-		    maxValue : o2.maxValue,
-		    disabledDays : o2.disabledDays,
-		    format : o2.format,
-		    allowBlank : o2.allowBlank,
-		    queryable : o2.queryable,
-		    readOnly: newOrEdit=='info'?true:o2.readOnly,
-		    style: newOrEdit=='info'?'background:#E6E6E6':o2.style,
-		    maxLength: o2.maxLength,
-         	maxLengthText: o2.maxLengthText
-		}
+	this.copyForm = function (newOrEdit,formFields){
+		var newFormFields = Ext.decode(Ext.encode(formFields));
 		
-		if(o2.xtype=='combo' || o2.xtype == 'lovcombo'){
+		for(var i = 0 ; i < newFormFields.length ; i ++){
+			
+			var fieldSets = newFormFields[i].items;
+			
+			for(var j = 0 ; j < fieldSets.length ; j ++){
+				
+				var fields = fieldSets[j].items;
+				
+				for(var k = 0 ; k < fields.length ; k ++){
+					if(typeof(fields[k].byUse) != 'undefined' &&fields[k].byUse[newOrEdit+"_panel"] == false){
+						fields[k].hidden = true;
+					} else{
+						this.setProperty(newOrEdit,fields[k]);
+					}
+				}
+			}
+		}
+		return newFormFields;
+	}
+	
+	/**设置属性*/
+	this.setProperty = function (newOrEdit,o1){
+		
+		o1.id = newOrEdit+'_'+(o1.id||Ext.id());
+		o1.readOnly = newOrEdit=='info'?true:o1.readOnly;
+		o1.style = newOrEdit=='info'?'background:#E6E6E6':o1.style;
+		
+		if(o1.xtype=='combo' || o1.xtype == 'lovcombo'){
 			
 			o1.mode = 'local';
 		    o1.typeAhead = true;
@@ -416,10 +417,10 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 		    o1.emptyText = o2.emptyText;
 		    
 		    var url;
-		    if(o2.codeNo){
-			    url = path+'/utilAction!getCodeLibrary.action?codeNo='+o2.codeNo;
+		    if(o1.codeNo){
+			    url = path+'/utilAction!getCodeLibrary.action?codeNo='+o1.codeNo;
 			}else{
-			    url = path+'/utilAction!getCodeLibraryBySql.action?codeSql='+o2.codeSql;
+			    url = path+'/utilAction!getCodeLibraryBySql.action?codeSql='+o1.codeSql;
 			}
 			o1.store = new Ext.data.JsonStore({
 	            autoLoad: true,
@@ -427,19 +428,15 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 			    url: url
 			})        
 		}
-		if(o2.xtype=='combotree'){
-			o1.relativeField = newOrEdit+'_'+o2.relativeField;
-            o1.onceLoad = o2.onceLoad;
-			o1.allowUnLeafClick = o2.allowUnLeafClick;
+		if(o1.xtype=='combotree'){
+			o1.relativeField = newOrEdit+'_'+o1.relativeField;
 			
-			if(o2.onceLoad == true){
-			    o1.dataUrl = o2.dataUrl+'!getAllNodes.action'
+			if(o1.onceLoad == true){
+			    o1.dataUrl = o1.dataUrl+'!getAllNodes.action'
 			}else{
-			    o1.dataUrl = o2.dataUrl+'!getChildNodes.action'
+			    o1.dataUrl = o1.dataUrl+'!getChildNodes.action'
 			}
 		}
-	
-		return o1;
 	}    
     
 	this.initGridAndForm = function(){
@@ -545,7 +542,7 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 												o_whereClause[field_name] = field_value;
 											}
 										}
-					                	var keyName = findArrayValue(formFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
+					                	var keyName = findArrayValue(initLoadFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
 										
 										Ext.Ajax.request({
 										    url : path+actionUrl+'!delete.action',
@@ -731,7 +728,7 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 	       		xtype: 'button',
 	       		icon: path+'/resources/extjs/examples/shared/icons/save.gif',
 				handler: function() {
-					var keyName = findArrayValue(formFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
+					var keyName = findArrayValue(initLoadFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
 	          		submitForm('edit',path,actionUrl,editWindow,editPanel,entityName,keyName,gridStore,pageSize);
 		     	}	
 	       	},
@@ -752,7 +749,7 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 	       		xtype: 'button',
 	       		icon: path+'/resources/extjs/examples/shared/icons/save.gif',
 				handler: function() {
-					var keyName = findArrayValue(formFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
+					var keyName = findArrayValue(initLoadFields,'name', 'uid','field');//查找名为“uid”列的field属性的属性值
 	          		submitForm('new',path,actionUrl,newWindow,newPanel,entityName,keyName,gridStore,pageSize);
 		     	}	
 	       	},
@@ -770,8 +767,8 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 		
 //------编辑表单和详情表单，需要填充数据的表单项----------------------------------
 
-		var loadFields = this.initloadFields(formFields);
-		
+		var initLoadFields = this.initloadFields(formFields);
+		var loadFieldNames = this.initloadFieldNames(this.initloadFields(formFields));
 //------创建新增表单和窗口-------------------------------------------------------
 
 		/**创建新增表单*/
@@ -810,7 +807,7 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 					successProperty: 'success',
 					root: 'info'
 				},
-				loadFields
+				loadFieldNames
 			),
 		    items: this.initEditFields(formFields)
 		});
@@ -838,7 +835,7 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 		    reader: new Ext.data.JsonReader({
 				successProperty: 'success',
 				root: 'info'
-			},loadFields
+			},loadFieldNames
 			),
 			items:this.initInfoFields(formFields)
 		});

@@ -1,60 +1,35 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<style type="text/css"> 
-div{border:1px solid #ccc;background:#eee;margin:10px;} 
-</style> 
-说明：<ul> 
-<li>可以设置是否响应鼠标暂停</li> 
-<li>可以设置滚动滚动方向</li> 
-<li>可以设置滚动速度</li> 
-<li>图文支持</li> 
-<li>。。。</li> 
-</ul> 
-<hr /> 
-<!-- 必须包含的js文件 [[ --> 
-<script type="text/javascript" src="/WBPT/resources/js/marquee.js"></script> 
-<!-- 必须包含的js文件 ]] --> 
-<!-- 例子1 向上滚动 [[ --> 
-<div id="m"> 
-    <ul> 
-    <li><a href="http://www.div-css.com/">Web标准化</a></li>
-    <li><a href="http://www.div-css.com/html/standard/">Web标准化 XHTML CSS</a></li>
-    <li><a href="Ajax/Javascripthttp://www.div-css.com/html/x1/">Ajax/Javascript</a></li> 
-    <li><a href="http://www.div-css.com/html/web_design/">页面设计</a></li> 
-    <li><a href="http://www.div-css.com/html/Web_develop/">网站开发</a></li> 
-    <li><a href="http://www.div-css.com/html/database/">数据库</a></li> 
-    <li><a href="http://www.div-css.com/html/server/">服务器</a></li> 
-    <li><a href="http://bbs.div-css.com/">论坛</a></li> 
-    </ul> 
-</div> 
-<script type="text/javascript"> 
-new Marquee("m",0,1,258,60,50,0,0); 
-</script> 
-<!-- 例子1 [[ --> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Forms</title>
+    <link rel="stylesheet" type="text/css" href="/WBPT/resources/extjs/resources/css/ext-all.css"/>
 
-<!-- 例子2 向下滚动 [[ --> 
-<div id="m0"> 
-<ul> 
-<li>向下Welcome</li> 
-<li>向下About us</li> 
-<li>向下Services</li> 
-<li>向下Testimonials</a></li> 
-<li>向下Contact us</a></li> 
-</ul> 
-</div> 
-<script type="text/javascript"> 
-new Marquee("m0",1,1,258,500,50,0,0); 
-</script> 
-<!-- 例子2 ]] --> 
+    <!-- GC -->
+    <!-- LIBS -->
+    <script type="text/javascript" src="/WBPT/resources/extjs/adapter/ext/ext-base.js"></script>
+    <!-- ENDLIBS -->
 
-<!-- 例子3 向左滚动 [[ --> 
-<div id="m1" style="white-space:nowrap;">想向左就向左<<<<<想向左就向左<<<<<想向左就向左<<<<<。。。</div> 
-<script type="text/javascript"> 
-new Marquee("m1",2,1,258,500,50,0,0); 
-</script> 
-<!-- 例子3 ]] --> 
-<!-- 例子4 向右滚动 [[ --> 
-<div id="m2" style="white-space:nowrap;">想向右就向右>>>>>想向右就向右>>>>>想向右就向右>>>>>。。。。</div> 
-<script type="text/javascript"> 
-new Marquee("m2",3,1,258,500,50,0,0); 
-</script> 
-<!-- 例子4 ]] --> 
+    <script type="text/javascript" src="/WBPT/resources/extjs/ext-all.js"></script>
+
+    <script type="text/javascript" src="states.js"></script>
+    <script type="text/javascript" src="dynamic.js"></script>
+    <link rel="stylesheet" type="text/css" href="forms.css"/>
+
+    <!-- Common Styles for the examples -->
+    <link rel="stylesheet" type="text/css" href="/WBPT/resources/extjs/examples/shared/examples.css"/>
+</head>
+<body>
+<script type="text/javascript" src="/WBPT/resources/extjs/examples/shared/examples.js"></script>
+<!-- EXAMPLES -->
+<h1>Dynamic Forms built with JavaScript</h1>
+
+<p>
+    These forms do not do anything and have very little validation. They solely demonstrate
+    how you can use Ext Forms to build and layout forms on the fly.
+</p>
+
+<p>The js is not minified so it is readable. See <a href="dynamic.js">dynamic.js</a>.</p>
+
+</body>
+</html>
