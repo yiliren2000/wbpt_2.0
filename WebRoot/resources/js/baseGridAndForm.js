@@ -414,7 +414,6 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
 		    o1.emptyText = '请选择...';
 		    o1.displayField = 'text';
 		    o1.valueField = 'uid';
-		    o1.emptyText = o2.emptyText;
 		    
 		    var url;
 		    if(o1.codeNo){

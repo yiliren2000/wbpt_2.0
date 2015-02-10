@@ -100,8 +100,17 @@
 		            searchable: false
 		        }],
 				
-				/**form表单信息项**/
-			    formFields: [{
+		/**form表单信息项**/
+		formFields : [ {
+			xtype : 'fieldset',
+			title : ' ',
+			collapsible : true,
+			autoHeight : true,
+			layout : 'column',
+			items : [ {
+				columnWidth : 1.0,
+				layout : 'form',
+				items : [ {
 			        xtype:'textfield',
 			        fieldLabel: '主键',
 			        name:'uid',
@@ -143,7 +152,7 @@
 			        field:'status',
                     editable : false,
 			        codeNo: 'Status'
-			    }],
+			    }]}]}],
 			    
 				buttons:[
 					{ name : 'add_button', visible : ${pt:hasRight(curUser,'add', entityName)}},
@@ -158,7 +167,7 @@
 			var jsonObject = Ext.decode('${ param.jsonObject }');
 			//如果点击的是一级机构，则增加“直属领导”输入框
 		    if(jsonObject.level == 1){
-				params.formFields.push({
+				params.formFields[0].items[0].items.push({
 			        xtype:'combo',
 	                fieldLabel: '直属领导',
 			        name:'directLeader',

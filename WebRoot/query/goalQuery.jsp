@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/header.jsp"%>
 
-<c:set var="entityName" value="com.lxq.platform.goalManage.pojo.PerformanceGoal"></c:set>
-    
+<c:set var="entityName"
+	value="com.lxq.platform.goalManage.pojo.PerformanceGoal"></c:set>
+
 <html>
-	<head>
-		<script type="text/javascript">
+<head>
+<script type="text/javascript">
 			var params = {		
 			    /**panel渲染元素**/
 				divId : '${pageId}',
@@ -106,9 +107,14 @@
 		            searchable: false
 		        }],
 				
-				/**form表单信息项**/
-			    formFields: [
-			    {
+		/**form表单信息项**/
+		formFields : [ {
+			xtype : 'fieldset',
+			title : ' ',
+			collapsible : true,
+			autoHeight : true,
+			layout : 'column',
+			items : [ {
 			        xtype:'textfield',
 			        fieldLabel: '主键',
 			        name:'uid',
@@ -155,7 +161,7 @@
 			        name:'createTime',
 			        field: 'createTime',
 			        allowBlank: false
-			    }],
+			    }]}]}],
 			    
 				//new : 新增权限,info ： 查看权限,edit ：编辑权限,cancel ：取消权限，all ：所有权限
 				buttons:[
@@ -257,8 +263,8 @@
 			});
 			
 		</script>
-	</head>
-	<body>
-		<div id='${pageId}'></div>
-	</body>
+</head>
+<body>
+	<div id='${pageId}'></div>
+</body>
 </html>
