@@ -99,26 +99,38 @@
 					field : 'uid',
 					hidden : true,
 					readOnly : true
-				}, {
+				} ]
+			},{
+				columnWidth : 1.0,
+				layout : 'form',
+				items : [ {
 					xtype : 'textfield',
 					fieldLabel : '权限名称',
 					name : 'name',
 					field : 'name',
 					allowBlank : false
-				}, {
-					xtype : 'textfield',
-					fieldLabel : '操作名称',
-					name : 'operate',
-					field : 'operate',
-					allowBlank : false
-				}, {
+				} ]
+			},{
+				columnWidth : 1.0,
+				layout : 'form',
+				items : [ {
+					xtype:'textfield',
+			        fieldLabel: '操作名称',
+			        name:'operate',
+			        field: 'operate',
+			        allowBlank: false
+				} ]
+			},{
+				columnWidth : 1.0,
+				layout : 'form',
+				items : [ {
 					xtype : 'textfield',
 					fieldLabel : '实体类名称',
 					name : 'className',
 					field : 'className',
 					allowBlank : false
 				} ]
-			} ]
+			}]
 		} ],
 
 		//new : 新增权限,info ： 查看权限,edit ：编辑权限,cancel ：取消权限，all ：所有权限

@@ -10,7 +10,7 @@ import com.lxq.platform.workflow.pojo.FlowModel;
 import com.lxq.platform.workflow.pojo.FlowNode;
 import com.lxq.platform.workflow.pojo.FlowRecord;
 
-public class TestFlow {
+public class FlowTest {
 
 	public static void main(String[] args) throws Exception{
 		
