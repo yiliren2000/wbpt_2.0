@@ -2,19 +2,24 @@ package com.lxq.platform.workflow.pojo;
 
 import java.util.Set;
 
+import com.lxq.platform.annotation.Describe;
+
+@Describe(describe="流程模板")
 public class FlowModel {
-	/**主键*/
+	
+	@Describe(describe="主键")
 	private int uid;
 	
-	/**节点编号*/
+	@Describe(describe="节点编号")
 	private String modelNo;
 	
-	/**节点名称*/
+	@Describe(describe="节点名称")
 	private String modelName;
 	
-	/**所属流程*/
+	@Describe(describe="所属流程")
 	private Set<FlowNode> flowNodes;
 	
+	@Describe(describe="备注")
 	private String remark;
 
 	public int getUid() {

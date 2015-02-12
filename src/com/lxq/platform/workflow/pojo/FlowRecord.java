@@ -1,31 +1,36 @@
 package com.lxq.platform.workflow.pojo;
 
+import com.lxq.platform.annotation.Describe;
+import com.lxq.platform.systemManage.pojo.CodeLibrary;
 import com.lxq.platform.userManage.pojo.User;
 
 public class FlowRecord {
 
-	/**主键*/
+	@Describe(describe="主键")
 	private int uid;
 	
-	/**节点编号*/
+	@Describe(describe="节点编号")
 	private FlowNode flowNode;
 	
-	/**对象类型*/
+	@Describe(describe="对象类型")
 	private String objectType;
 	
-	/**对象主键*/
+	@Describe(describe="对象主键")
 	private int objectUid;
 	
-	/**处理人*/
+	@Describe(describe="处理人")
 	private User user;
 	
-	/**开始时间*/
+	@Describe(describe="开始时间")
+	private CodeLibrary action;
+	
+	@Describe(describe="开始时间")
 	private String startTime;
 	
-	/**结束时间*/
+	@Describe(describe="结束时间")
 	private String endTime;
 	
-	/**结束时间*/
+	@Describe(describe="结束时间")
 	private FlowRecord lastRecord;
 	
 
