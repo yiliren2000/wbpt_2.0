@@ -10,10 +10,10 @@ public class FlowModel {
 	@Describe(describe="主键")
 	private int uid;
 	
-	@Describe(describe="节点编号")
+	@Describe(describe="流程编号")
 	private String modelNo;
 	
-	@Describe(describe="节点名称")
+	@Describe(describe="流程名称")
 	private String modelName;
 	
 	@Describe(describe="所属流程")

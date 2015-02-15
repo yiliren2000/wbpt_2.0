@@ -23,10 +23,10 @@ com.lxq.js.GridAndForm.BaseGridAndForm = function(params){
     var pageSize = params.pageSize;
     /**grid 的sql from 语句**/
     var gridSql = params.gridSql;
-    /**form 的sql from 语句**/
-    this.formSql = params.formSql;
     /**grid 的queryClause语句**/
     this.queryClause = params.queryClause;
+    /**form 的sql from 语句**/
+    this.formSql = params.formSql;
     /**排序字段*/
     this.sort = params.sort;
 	/**排序方式*/

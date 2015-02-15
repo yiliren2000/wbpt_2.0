@@ -36,5 +36,7 @@
         <mapper resource="com/lxq/platform/userManage/pojo/UserRoleMapper.xml"/>    
       
          <mapper resource="com/lxq/platform/workflow/pojo/FlowModelMapper.xml"/>
-</mappers>  
+         <mapper resource="com/lxq/platform/workflow/pojo/FlowNodeMapper.xml"/>
+	         <mapper resource="com/lxq/platform/workflow/pojo/FlowRecordMapper.xml"/>
+			</mappers>  
 </configuration> 

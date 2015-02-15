@@ -4,6 +4,7 @@ import com.lxq.platform.annotation.Describe;
 import com.lxq.platform.systemManage.pojo.CodeLibrary;
 import com.lxq.platform.userManage.pojo.User;
 
+@Describe(describe="流程记录")
 public class FlowRecord {
 
 	@Describe(describe="主键")
@@ -21,7 +22,7 @@ public class FlowRecord {
 	@Describe(describe="处理人")
 	private User user;
 	
-	@Describe(describe="开始时间")
+	@Describe(describe="处理动作")
 	private CodeLibrary action;
 	
 	@Describe(describe="开始时间")
