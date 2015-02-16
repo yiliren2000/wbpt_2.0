@@ -1,15 +1,10 @@
 package com.lxq.platform.userManage.action;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.lxq.platform.action.BaseAction;
 import com.lxq.platform.exception.PrivilegeException;
-import com.lxq.platform.userManage.pojo.Privilege;
-import com.lxq.platform.userManage.pojo.Role;
 import com.lxq.platform.userManage.pojo.RolePrivilege;
 import com.lxq.platform.userManage.pojo.User;
 import com.lxq.platform.util.ServletUtil;
@@ -17,48 +12,6 @@ import com.lxq.platform.util.ServletUtil;
 @SuppressWarnings("serial")
 public class RolePrivilegeAction extends BaseAction {
 	
-	/**
-     * 获取json格式的分页数据
-     * @return json格式的分页数据。
-     *     例：{callback:"callback1001",totalCount:2,topics:[{"admin","系统管理员"},{"test","测试用户"}]}
-     */
-	public void jsonPage() {
-
-		if(queryClause == null || queryClause.equals("")){
-			ServletUtil.responseText("'totalCount':0,'topics':[]}");
-		}else{
-		
-			Role role = (Role)baseService.findUniqueBySql(Role.class,"select * from basic_role where "+queryClause);
-	
-			JSONArray topics = new JSONArray();
-	
-			JSONObject topic = new JSONObject();
-			
-			Set<Privilege> privileges = role.getPrivileges();
-			Iterator<Privilege> it = privileges.iterator();
-			
-			topic.put("roleUid", role.getUid());
-			while(it.hasNext()){
-				Privilege privilege = it.next();
-				
-				topic.put("privilegeUid", privilege.getUid());
-				topic.put("name", privilege.getName());
-				topic.put("operate", privilege.getOperate());
-				topic.put("className", privilege.getClassName());
-				
-				topics.add(topic);
-			}
-				
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("totalCount", privileges.size());
-			jsonObject.put("topics", topics);
-			
-			String str_json = jsonObject.toString();
-			
-			ServletUtil.responseText(str_json);
-	
-		}
-	}
 	/**
 	 * 加载表单数据
 	 * @return json格式数据。

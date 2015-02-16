@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${className}Mapper">
+
+    <insert id="insert" parameterType="${className}">
+        insert into 
+            ${shortName} 
+        values
+            (${fields1})
+    </insert>
+    
+    <update id="update" parameterType="${className}">
+        update ${shortName} 
+        set 
+            ${fields2}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="${className}">
+        delete from ${shortName} where uid=#{uid}
+    </delete>
+    
+    <select id="findById"  resultType="${className}">
+        select * from ${shortName} where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultType="${className}">
+        ${sql}
+    </select>
+    
+</mapper>

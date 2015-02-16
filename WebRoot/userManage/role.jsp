@@ -178,6 +178,15 @@
 		/**每页显示的记录数**/
 		pageSize : 7,
 
+		/**grid 的sql from 语句**/
+		gridSql : 'select role as roleUid,privilege as privilegeUid,b.name as name,b.operate as operate,b.classname as className from basic_role_privilege a , basic_privilege b where a.privilege=b.uid',
+
+		/**初始化grid的sql查询条件**/
+		queryClause : '1=2',
+
+		/**form 的sql from 语句**/
+		formSql : 'from basic_role',
+
 		/**排序字段**/
 		sort : 'uid',
 
@@ -311,7 +320,7 @@
 			});
 
 			//重新加载下面gird的数据 
-			privilege.reloadGrid(encodeURI("uid='" + key_value + "'"));
+			privilege.reloadGrid(encodeURI("a.role='" + key_value + "'"));
 		}
 	})
 </script>

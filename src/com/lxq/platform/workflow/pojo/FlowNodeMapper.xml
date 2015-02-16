@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.workflow.pojo.FlowNodeMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.workflow.pojo.FlowNode">
+        insert into 
+            flownode 
+        values
+            (#{uid},#{nodeNo},#{nodeName},#{script},#{flowModel.uid},#{remark})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.workflow.pojo.FlowNode">
+        update flownode 
+        set 
+             uid=#{uid}, nodeNo=#{nodeNo}, nodeName=#{nodeName}, script=#{script}, flowModel=#{flowModel.uid}, remark=#{remark}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.workflow.pojo.FlowNode">
+        delete from flownode where uid=#{uid}
+    </delete>
+    
+    <select id="findById"  resultMap="flownodeResult">
+        select * from flownode where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="flownodeResult">
+        ${sql}
+    </select>
+    
+	<resultMap type="com.lxq.platform.workflow.pojo.FlowNode"  id="flownodeResult">
+		<id column="uid" property="uid"/>
+		<association property="flowModel" column="flowModel"  select="com.lxq.platform.workflow.pojo.FlowModelMapper.findById" />
+	</resultMap>
+
+</mapper>

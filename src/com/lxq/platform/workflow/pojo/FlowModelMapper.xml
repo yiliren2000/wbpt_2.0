@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.workflow.pojo.FlowModelMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.workflow.pojo.FlowModel">
+        insert into 
+            flowmodel 
+        values
+            (#{uid},#{modelNo},#{modelName},#{remark})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.workflow.pojo.FlowModel">
+        update flowmodel 
+        set 
+             uid=#{uid}, modelNo=#{modelNo}, modelName=#{modelName}, remark=#{remark}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.workflow.pojo.FlowModel">
+        delete from flowmodel where uid=#{uid}
+    </delete>
+    
+    <select id="findById" resultType="com.lxq.platform.workflow.pojo.FlowModel">
+        select * from flowmodel where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultType="com.lxq.platform.workflow.pojo.FlowModel">
+        ${sql}
+    </select>
+        
+</mapper>
