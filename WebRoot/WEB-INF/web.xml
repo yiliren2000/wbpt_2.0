@@ -45,7 +45,7 @@
       
     <filter-mapping>     
         <filter-name>loginVerify</filter-name>    
-        <url-pattern>/*</url-pattern>     
+        <url-pattern>*.action</url-pattern>     
     </filter-mapping> 
 	
 	<filter>

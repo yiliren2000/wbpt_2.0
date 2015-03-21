@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxq.platform.workflow.pojo.FlowRecordMapper">
+
+    <insert id="insert" parameterType="com.lxq.platform.workflow.pojo.FlowRecord">
+        insert into 
+            flowrecord 
+        values
+            (#{uid},#{flowNode.uid},#{objectType},#{objectUid},#{user.uid},#{action.uid},#{startTime},#{endTime},#{lastRecord.uid})
+    </insert>
+    
+    <update id="update" parameterType="com.lxq.platform.workflow.pojo.FlowRecord">
+        update flowrecord 
+        set 
+             uid=#{uid}, flowNode=#{flowNode.uid}, objectType=#{objectType}, objectUid=#{objectUid}, user=#{user.uid}, action=#{action.uid}, startTime=#{startTime}, endTime=#{endTime}, lastRecord=#{lastRecord.uid}
+        where uid=#{uid}
+    </update>
+    
+    <delete id="delete" parameterType="com.lxq.platform.workflow.pojo.FlowRecord">
+        delete from flowrecord where uid=#{uid}
+    </delete>
+    
+    <select id="findById"  resultMap="flowrecordResult">
+        select * from flowrecord where uid=#{uid}
+    </select>
+    
+    <select id="findBySql" resultMap="flowrecordResult">
+        ${sql}
+    </select>
+    
+	<resultMap type="com.lxq.platform.workflow.pojo.FlowRecord" id="flowrecordResult">
+		<id column="uid" property="uid"/>
+		<association property="flowNode" column="flowNode" select="class com.lxq.platform.workflow.pojo.FlowNode.findById" />
+		<association property="user" column="user" select="class com.lxq.platform.userManage.pojo.User.findById" />
+		<association property="action" column="action" select="class com.lxq.platform.systemManage.pojo.CodeLibrary.findById" />
+		<association property="lastRecord" column="lastRecord" select="class com.lxq.platform.workflow.pojo.FlowRecord.findById" />
+	</resultMap>
+
+</mapper>

@@ -11,6 +11,14 @@ import com.lxq.platform.workflow.pojo.FlowRecord;
 
 public class FlowEngine {
 
+	/**
+	 * 初始化流程
+	 * @param flowNode
+	 * @param user
+	 * @param objectType
+	 * @param objectUid
+	 * @return
+	 */
 	public static FlowRecord initFlow(FlowNode flowNode,User user,String objectType,int objectUid){
 		
 		FlowRecord record = new FlowRecord();
@@ -25,6 +33,21 @@ public class FlowEngine {
 		return record;
 	}
 	
+	/**
+	 * 生成流程节点
+	 * @param curRecord
+	 * @param nextNode
+	 * @param user
+	 * @param params
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public static FlowRecord generateNode(FlowRecord curRecord,FlowNode nextNode,User user,Map<String,String> params) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		
 		String nowTime = DateUtil.getNowTime();
@@ -42,6 +65,19 @@ public class FlowEngine {
 		return nextRecord;
 	}
 	
+	/**
+	 * 获取流程动作
+	 * @param curRecord
+	 * @param params
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public static FlowAction getFlowAction(FlowRecord curRecord,Map<String,String> params) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		
 		if(curRecord.getFlowNode().getScript() == null || curRecord.getFlowNode().getScript().equals("")){
@@ -53,6 +89,19 @@ public class FlowEngine {
 		return flowAction;
 	}
 	
+	/**
+	 * 执行脚本
+	 * @param flowRecord
+	 * @param params
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public static FlowAction executeScript(FlowRecord flowRecord,Map<String,String> params) throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException{
 		
 		String script = flowRecord.getFlowNode().getScript();
